@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>橡皮音乐</title>
+</head>
+<body>
+<div>
+    <input type="text" placeholder="输入歌曲名" id="name">
+    <button onclick="search('netease')">网易搜索</button>
+    <button onclick="search('kugou')">酷狗搜索</button>
+    <button onclick="search('tencent')">QQ搜索</button>
+    <button onclick="search('baidu')">百度搜索</button>
+    <button onclick="search('xiami')">虾米搜索</button>
+    <hr>
+</div>
+<span id="search"></span>
+
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<script>
+    function search(source) {
+        var search = document.getElementById("search");
+
+        search.innerHTML = "正在搜索...";
+
+        var name = $("#name").val();
+        if (name != "") {
+            $.get("eraser.php", {
+                type: 'search',
+                source: source,
+                name: name
+            }, function (data) {
+                search.innerHTML = data;
+            }).error(function () {
+                search.innerHTML = "网络错误，请稍后重试";
+            });
+        }
+    }
+    console.log("使用到【mengkun(http://mkblog.cn) 】的一小部分代码，核心代码由【Meting music framework，METO Sheel -> i@i-meto.com】开发。许可：知识共享署名-相同方式共享 4.0 国际许可协议。BY lifanko：https://github.com/lifankohome")
+</script>
+</body>
+</html>
