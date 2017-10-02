@@ -4,3 +4,5 @@
 ### 到核心代码作者的GitHub看了一眼，我再也不会觉得自己有时间停下来等别人了。
 
 ### 加油Fighting
+
+地址：http://hpu.lifanko.cn:81/music/
