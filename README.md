@@ -7,4 +7,5 @@
 网易 + 酷狗 + QQ + 虾米 + 百度 = 中华曲库
 
 示例链接：http://hpu.lifanko.cn:81/music/
-![示例](http://cdn.lifanko.cn/music-spider.jpg)
+
+![示例截图](http://cdn.lifanko.cn/music-spider.jpg)

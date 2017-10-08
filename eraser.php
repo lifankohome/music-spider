@@ -30,18 +30,30 @@ switch (getParam('type')) {
         $data = $Eraser->search($s, $pages, $limit);
 
         $arr = json_decode($data, true);
+        if ($source == 'kugou' || $source == 'baidu' || $source == 'xiami') {
+            echo "<table><tr><th>歌曲</th><th>演唱</th><th>源</th><th>封面</th></tr>";
+        } else {
+            echo "<table><tr><th>歌曲</th><th>演唱</th><th>源</th></tr>";
+        }
 
-        echo "<ul class='list'>";
         foreach ($arr as $value) {
             $url = json_decode($Eraser->url($value['id']), true)['url'];
             $pic = json_decode($Eraser->pic($value['id']), true)['url'];
+
+            $name = $value['name'];
+            $sou = $value['source'];
+            $artist = $value['artist'][0];
+            echo "<tr>";
+            echo "<td><a href='play.php?url=$url&name=$name'>$name</a></td>";
+            echo "<td>{$artist}</td>";
+            echo "<td>{$sou}</td>";
+
             if ($source == 'kugou' || $source == 'baidu' || $source == 'xiami') {//图片解密算法改了，所以网易和QQ都获取不到图片，等待新的解密算法~
-                echo "<li><a href=$url>" . $value['name'] . '</a>　演唱：' . $value['artist'][0] . '　源：' . $value['source'] . "　<a href='$pic'>封面</a></li>";
-            } else {
-                echo "<li><a href=$url>" . $value['name'] . '</a>　演唱：' . $value['artist'][0] . '　源：' . $value['source'] . '</li>';
+                echo "<td><img src='$pic' width='40px'></td>";
             }
+            echo "</tr>";
         }
-        echo "</ul>";
+        echo "</table>";
 
         break;
     default:

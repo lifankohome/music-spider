@@ -3,28 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <title>橡皮音乐</title>
+    <style>
+        .box input {
+            display: block;
+            height: 30px;
+            text-align: center;
+            width: 90%;
+            margin: 1pc auto;
+            color: #009f95;
+            border: 1px #009f95 solid;
+            border-radius: 25px;
+            font-size: 18px;
+            outline: none;
+            padding: 5px;
+            box-shadow: 0 0 12px 0 #009f95;
+        }
+
+        .box .btns {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .box button {
+            width: 13.5%;
+            margin: 0 3%;
+            color: white;
+            background-color: #62658d;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            padding: 0.5pc;
+            box-shadow: -4px 4px 10px 0 #b7b7b7;
+            outline: none;
+            transition: all 0.3s 0s;
+            cursor: pointer;
+        }
+
+        .box button:hover {
+            background-color: #009f95;
+            color: white;
+            border-radius: 10px;
+        }
+
+        #search {
+            text-align: center;
+            margin-top: 2pc;
+        }
+
+        #search table {
+            width: 90%;
+            margin: 2pc auto;
+            border: 1px #333 solid;
+            padding: 1pc;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        #search table tr, th {
+            height: 50px;
+            font-weight: 500;
+        }
+
+        #search table td, th {
+            border: 1px #777 dotted;
+        }
+    </style>
 </head>
 <body>
-<div>
+<div class="box">
     <input type="text" placeholder="输入歌曲名" id="name">
-    <button onclick="search('netease')">网易搜索</button>
-    <button onclick="search('kugou')">酷狗搜索</button>
-    <button onclick="search('tencent')">QQ搜索</button>
-    <button onclick="search('baidu')">百度搜索</button>
-    <button onclick="search('xiami')">虾米搜索</button>
-    <hr>
+    <div class="btns">
+        <button onclick="search('netease')">网易搜索</button>
+        <button onclick="search('kugou')">酷狗搜索</button>
+        <button onclick="search('tencent')">QQ搜索</button>
+        <button onclick="search('baidu')">百度搜索</button>
+        <button onclick="search('xiami')">虾米搜索</button>
+    </div>
 </div>
-<span id="search"></span>
+<div id="search"></div>
 
 <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
 <script>
     function search(source) {
         var search = document.getElementById("search");
 
-        search.innerHTML = "正在搜索...";
-
         var name = $("#name").val();
         if (name != "") {
+            search.innerHTML = "正在搜索...";
             $.get("eraser.php", {
                 type: 'search',
                 source: source,
@@ -34,6 +99,8 @@
             }).error(function () {
                 search.innerHTML = "网络错误，请稍后重试";
             });
+        } else {
+            search.innerHTML = "请输入歌曲名";
         }
     }
     console.log("使用到【mengkun(http://mkblog.cn) 】的一小部分代码，核心代码由【Meting music framework，METO Sheel -> i@i-meto.com】开发。许可：知识共享署名-相同方式共享 4.0 国际许可协议。BY lifanko：https://github.com/lifankohome")
