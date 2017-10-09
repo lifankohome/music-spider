@@ -6,5 +6,4 @@
 
 网易 + 酷狗 + QQ + 虾米 + 百度 = 中华曲库
 
-示例链接：http://hpu.lifanko.cn:81/music/
-![示例](http://cdn.lifanko.cn/music-spider.jpg)
+**能够实现基本的音乐播放，但是未添加任何样式，全部都是浏览器默认的效果。**
