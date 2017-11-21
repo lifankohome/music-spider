@@ -16,6 +16,6 @@ No_CSS_Version: https://github.com/lifankohome/music-spider/tree/No_CSS_Version
 
 ### Demo
 
-http://hpu.lifanko.cn:81/music/
+http://ali.lifanko.cn/music/
 
 ![示例截图](http://cdn.lifanko.cn/music-spider.jpg)
