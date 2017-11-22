@@ -14,7 +14,6 @@
  + Multi-Source
  + 180px Album Display
 
-
 ### Essential Code Quote
 
 Meting.php by https://github.com/metowolf/Meting
@@ -30,6 +29,10 @@ APlayer.min.js https://github.com/MoePlayer/APlayer
 <p align="center">
 <img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fhu01y9uy7j305k04s3yc.jpg" alt="ADPlayer" width="100">
 </p><h1 align="center">APlayer</h1>
+
+### Develop
+
+Both Meting.php and Aplayer.min.js have been modified, the original author's code may not work. 
 
 ### Alternative
 
