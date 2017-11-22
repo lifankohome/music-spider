@@ -627,7 +627,7 @@ class Meting
         return $this->curl($API);
     }
 
-    public function lyric($id)
+    public function lrc($id)
     {
         switch ($this->_SITE) {
             case 'netease':
@@ -1073,7 +1073,7 @@ class Meting
             'album'     => $data['al']['name'],
             'pic_id'    => isset($data['al']['pic_str'])?$data['al']['pic_str']:$data['al']['pic'],
             'url_id'    => $data['id'],
-            'lyric_id'  => $data['id'],
+            'lrc_id'    => $data['id'],
             'source'    => 'netease',
         );
         if (isset($data['al']['picUrl'])) {
@@ -1097,7 +1097,7 @@ class Meting
             'album'     => trim($data['album']['title']),
             'pic_id'    => $data['album']['mid'],
             'url_id'    => $data['mid'],
-            'lyric_id'  => $data['mid'],
+            'lrc_id'    => $data['mid'],
             'source'    => 'tencent',
         );
         foreach ($data['singer'] as $vo) {
@@ -1114,7 +1114,7 @@ class Meting
             'album'    => $data['album_name'],
             'pic_id'   => $data['song_id'],
             'url_id'   => $data['song_id'],
-            'lyric_id' => $data['song_id'],
+            'lrc_id'   => $data['song_id'],
             'source'   => 'xiami',
         );
         return $result;
@@ -1128,7 +1128,7 @@ class Meting
             'album'    => isset($data['album_name'])?$data['album_name']:'',
             'url_id'   => $data['hash'],
             'pic_id'   => $data['hash'],
-            'lyric_id' => $data['hash'],
+            'lrc_id'   => $data['hash'],
             'source'   => 'kugou',
         );
         list($result['artist'], $result['name'])=explode(' - ', $result['name'], 2);
@@ -1144,7 +1144,7 @@ class Meting
             'album'    => $data['album_title'],
             'pic_id'   => $data['song_id'],
             'url_id'   => $data['song_id'],
-            'lyric_id' => $data['song_id'],
+            'lrc_id'   => $data['song_id'],
             'source'   => 'baidu',
         );
         return $result;

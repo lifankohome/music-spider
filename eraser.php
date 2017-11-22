@@ -15,45 +15,37 @@ $Eraser = new Meting($source);
 
 $Eraser->format(true); // 启用格式化功能
 
-switch (getParam('type')) {
-    case 'lyric':       // 获取歌词
-        $id = getParam('id');  // 歌曲ID
-        $data = $Eraser->lyric($id);
+function jsonKeyClear($json) {  //去掉jsonKey的引号，适应js数据格式
+    $json = preg_replace('/"(\w+)"(\s*:\s*)/is', '$1$2', $json);   //去掉key的双引号
+    return $json;
+}
 
-        output($data, true);
-        break;
+switch (getParam('type')) {
     case 'search':  // 搜索歌曲
         $s = getParam('name');  // 歌名
-        $limit = getParam('count', 8);  // 每页显示数量
+        $limit = getParam('count', 15);  // 每页显示数量
         $pages = getParam('pages', 1);  // 页码
 
         $data = $Eraser->search($s, $pages, $limit);
 
         $arr = json_decode($data, true);
-        if ($source == 'kugou' || $source == 'baidu' || $source == 'xiami') {
-            echo "<table><tr><th>歌曲</th><th>演唱</th><th>源</th><th>封面</th></tr>";
-        } else {
-            echo "<table><tr><th>歌曲</th><th>演唱</th><th>源</th></tr>";
-        }
+
+        $songList = array();
 
         foreach ($arr as $value) {
-            $url = json_decode($Eraser->url($value['id']), true)['url'];
-            $pic = json_decode($Eraser->pic($value['id']), true)['url'];
+            $url = json_decode($Eraser->url($value['url_id']), true)['url'];
+            $pic = json_decode($Eraser->pic($value['pic_id']), true)['url'];
+            $lrc = json_decode($Eraser->lrc($value['lrc_id']), true)['lyric'];
 
             $name = $value['name'];
-            $sou = $value['source'];
             $artist = $value['artist'][0];
-            echo "<tr>";
-            echo "<td><a href='play.php?url=$url&name=$name'>$name</a></td>";
-            echo "<td>{$artist}</td>";
-            echo "<td>{$sou}</td>";
 
-            if ($source == 'kugou' || $source == 'baidu' || $source == 'xiami') {//图片解密算法改了，所以网易和QQ都获取不到图片，等待新的解密算法~
-                echo "<td><img src='$pic' width='40px'></td>";
-            }
-            echo "</tr>";
+            $song = ['title'=>$name,'author'=>$artist,'url'=>$url,'pic'=>$pic,'lrc'=>$lrc];
+
+            array_push($songList,$song);
         }
-        echo "</table>";
+
+        echo jsonKeyClear(json_encode($songList));
 
         break;
     default:
@@ -63,15 +55,4 @@ switch (getParam('type')) {
 function getParam($key, $value = '')
 {
     return trim($key && is_string($key) ? (isset($_POST[$key]) ? $_POST[$key] : (isset($_GET[$key]) ? $_GET[$key] : $value)) : $value);
-}
-
-function output($json, $out = false)
-{
-    $arr = $json;
-    if ($out) {
-        $arr = json_decode($json, true);
-        print_r($arr);
-    }
-
-    echo $arr;
 }
