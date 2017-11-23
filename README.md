@@ -10,9 +10,9 @@
 
  + HTML5 Player
  + Lyric Display
- + Lyric Spacing Auto Adjust
- + Multi-Source
  + 180px Album Display
+ + Hot Search Word Display
+ + Lyric Spacing Auto Adjust
 
 ### Essential Code Quote
 
