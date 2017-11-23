@@ -1,7 +1,5 @@
 # Music-spider 橡皮音乐
 
-**Under Creative Commons Attribution 4.0 International License**
-
 ### Introduction
 
 在线音乐播放器，歌曲库：网易 + 酷狗 + QQ + 虾米 + 百度，合称中华曲库
