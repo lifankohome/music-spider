@@ -4,77 +4,104 @@
     <meta charset="UTF-8">
     <title>橡皮音乐</title>
     <style>
-        .box input {
-            display: block;
-            height: 30px;
-            text-align: center;
-            width: 90%;
+        .container {
+            width: 70%;
             margin: 1pc auto;
-            color: #009f95;
-            border: 1px #009f95 solid;
-            border-radius: 25px;
-            font-size: 18px;
-            outline: none;
-            padding: 5px;
-            box-shadow: 0 0 12px 0 #009f95;
+            min-width: 640px;
         }
 
-        .box .btns {
-            width: 90%;
-            margin: 0 auto;
+        .box {
+            border: #555 1px solid;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
         }
 
-        .box button {
-            width: 13.5%;
-            margin: 0 3%;
+        .box input {
+            width: 100%;
+            height: 35px;
+            text-align: center;
+            border: none;
+            background-image: linear-gradient(-135deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);
+            border-bottom: #777 1px solid;
+        }
+
+        .box .btns button {
+            width: 20%;
+            padding: 10px 0;
             color: white;
             background-color: #62658d;
-            border-radius: 30px;
             border: none;
-            font-size: 16px;
-            padding: 0.5pc;
-            box-shadow: -4px 4px 10px 0 #b7b7b7;
-            outline: none;
             transition: all 0.3s 0s;
-            cursor: pointer;
+            border-bottom: #777 1px solid;
+            outline: none;
         }
 
-        .box button:hover {
-            background-color: #009f95;
-            color: white;
-            border-radius: 10px;
+        .box .btns button:hover {
+            background-color: #d34000;
+            cursor: pointer;
         }
 
         #search {
             text-align: center;
-            margin: 2pc 0;
+            height: 25px;
+            font-size: 12px;
+            padding-top: 10px;
+            background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);
+            cursor: default;
         }
 
         #player {
-            width: 80%;
             margin: 0 auto;
+        }
+
+        .hotWord{
+            background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);
+            color: #3b7294;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .hotWord h3{
+            margin: 0;
+        }
+
+        #hotSearch{
+            list-style: none;
+        }
+        #hotSearch li{
+            display: inline-block;
+            background-color: #7460f0;
+            color: #e2cdf5;
+            padding: 5px 10px;
+            margin: 5px;
+            font-size: 12px;
+            border-radius: 2px;
         }
     </style>
 </head>
 <body>
-<div class="box">
-    <input type="text" placeholder="输入歌曲名" id="name" autocomplete="off">
-    <div class="btns">
-        <button onclick="search('netease')">网易搜索</button>
-        <button onclick="search('kugou')">酷狗搜索</button>
-        <button onclick="search('tencent')">QQ搜索</button>
-        <button onclick="search('baidu')">百度搜索</button>
-        <button onclick="search('xiami')">虾米搜索</button>
+<div class="container">
+    <div class="box">
+        <input type="text" placeholder="输入 歌曲/歌手/专辑 以进行搜索" id="name" autocomplete="off">
+        <div class="btns">
+            <button onclick="search('netease')">网易搜索</button><button onclick="search('kugou')">酷狗搜索</button><button onclick="search('tencent')">QQ搜索</button><button onclick="search('baidu')">百度搜索</button><button onclick="search('xiami')">虾米搜索</button>
+        </div>
+        <div id="search">默认列表</div>
     </div>
+
+    <div id="player" class="aplayer"></div>
+    <div id="tip" style="color: whitesmoke"></div>
+    <div class="hotWord">
+        <h3>热搜 <a onclick="getHotSearch()" style="font-size: 12px;cursor: pointer;">加载更多</a></h3>
+        <ul id="hotSearch"></ul>
+    </div>
+
+    <p style="font-size: 12px">© Copyright lifanko 2017 November</p>
 </div>
-<div id="search">默认列表</div>
-
-<div id="player" class="aplayer"></div>
-
-<p style="margin-left: 10%;font-size: 12px">© Copyright lifanko 2017 November</p>
 
 <script type="text/javascript" src="http://cdn.lifanko.cn/jquery-2.1.1.min.js"></script>
 <script src="APlayer.min.js"></script>
+<script src="tip.min.js"></script>
 <script>
     //初始化播放器，使用默认列表
     var player = new APlayer({
@@ -191,6 +218,7 @@
                 name: name
             }, function (data) {
                 search.innerText = "《" + name + "》搜索结果";
+                tip("搜索《"+ name +"》成功", "10%", "1", 3000, false);
 
                 var buffer = eval("(" + data + ")");    //JS {} 块屏蔽处理
 
@@ -209,12 +237,34 @@
                 });
 
             }).error(function () {
-                search.innerHTML = "网络错误，请稍后重试";
+                tip("网络错误，请稍后再试", "10%", "1", 3000, false);
             });
         } else {
-            search.innerHTML = "请输入歌曲名";
+            tip("请输入 歌曲/歌手/专辑 后搜索", "10%", "1", 3000, false);
         }
     }
+
+    var hotSearchNum = 10;
+    function getHotSearch(){
+        $.get("eraser.php", {
+            type: 'hotSearch',
+            max: hotSearchNum
+        }, function (data) {
+            document.getElementById("hotSearch").innerHTML = data;
+
+            if(hotSearchNum>10){
+                tip("加载成功！", "85%", "1", 1000, false);
+            }
+
+            hotSearchNum += 10; //加载成功后才允许在加载更多
+        }).error(function () {
+            tip("加载失败！请稍后重试", "85%", "1", 1000, false);
+        });
+    }
+
+    getHotSearch(); //打开页面先加载一次热搜内容
+
+    tip("欢迎使用橡皮音乐", "25%", "1", 2000, false);
 </script>
 </body>
 </html>
