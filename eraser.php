@@ -52,7 +52,7 @@ switch (getParam('type')) {
 
         break;
     case 'hotSearch':  //获取热搜词
-        if(empty($max = getParam('max'))){ //显示的关键词数量
+        if (empty($max = getParam('max'))) { //显示的关键词数量
             $max = 10;
         }
 
