@@ -81,6 +81,7 @@
             margin: 5px;
             font-size: 12px;
             border-radius: 2px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -262,6 +263,7 @@
 
             if (hotSearchNum > 10) {
                 tip("加载成功！", "85%", "1", 1000, false);
+                clickHotSearch();   //刷新绑定事件
             }
 
             hotSearchNum += 10; //加载成功后才允许在加载更多
@@ -270,7 +272,21 @@
         });
     }
 
+    function clickHotSearch() {
+        var obj_lis = document.getElementById("hotSearch").getElementsByTagName("li");
+        for (var i = 0; i < obj_lis.length; i++) {
+            obj_lis[i].onclick = function () {
+                document.getElementById("name").value = this.innerText; //添加关键词进输入框
+                tip("《" + this.innerText + "》已经复制到搜索框", "85%", "1", 1000, false);
+            }
+        }
+    }
+
     getHotSearch(); //打开页面先加载一次热搜内容
+
+    window.onload = function () {   //绑定点击热搜词事件
+        clickHotSearch();
+    };
 
     tip("欢迎使用橡皮音乐", "25%", "1", 2000, false);
 </script>
