@@ -9,10 +9,8 @@ require_once 'Meting.php';
 use Metowolf\Meting;
 
 $source = getParam('source', 'netease');  //源
-if ($source == 'kugou' || $source == 'baidu') define('NO_HTTPS', true);    // 酷狗和百度音乐源暂不支持 https
 
 $Eraser = new Meting($source);
-
 $Eraser->format(true); // 启用格式化功能
 
 function jsonKeyClear($json)
@@ -22,6 +20,11 @@ function jsonKeyClear($json)
 }
 
 switch (getParam('type')) {
+    case 'playList':
+        $list = saveInfo('playList');
+        echo jsonKeyClear($list);
+
+        break;
     case 'search':  // 搜索歌曲
         $s = getParam('name');  // 歌名
         $limit = getParam('count', 15);  // 每页显示数量
@@ -46,9 +49,13 @@ switch (getParam('type')) {
             array_push($songList, $song);
         }
 
-        echo jsonKeyClear(json_encode($songList));
+        $list = json_encode($songList);
 
-        recordHotSearch($s);    //搜索词记录
+        echo jsonKeyClear($list);
+
+        if (count($songList)) {   //搜索有效时才进行记录
+            recordHotSearch($s, $list);    //搜索词记录
+        }
 
         break;
     case 'hotSearch':  //获取热搜词
@@ -56,7 +63,7 @@ switch (getParam('type')) {
             $max = 10;
         }
 
-        $jsonHotSearch = hotSearch();
+        $jsonHotSearch = saveInfo('hotSearch');
         if (!empty($jsonHotSearch)) {
             $arrHotSearch = json_decode($jsonHotSearch, true);  //解析为数组格式
             arsort($arrHotSearch);  //按从多到少排序
@@ -80,37 +87,39 @@ function getParam($key, $value = '')
     return trim($key && is_string($key) ? (isset($_POST[$key]) ? $_POST[$key] : (isset($_GET[$key]) ? $_GET[$key] : $value)) : $value);
 }
 
-function recordHotSearch($hotWord)
+function recordHotSearch($hotWord, $list)
 {
-    $jsonHotSearch = hotSearch();
+    $jsonHotSearch = saveInfo('hotSearch');
 
     if (!empty($jsonHotSearch)) {
         $arrHotSearch = json_decode($jsonHotSearch, true);  //解析为数组格式
         if (array_key_exists($hotWord, $arrHotSearch)) { //有记录则加一
             $arrHotSearch[$hotWord] += 1;
+
+            if ($arrHotSearch[$hotWord] == max($arrHotSearch)) {    //搜索最多的作为默认列表
+                saveInfo('playList', $list);
+            }
         } else {  //无记录则在数组中创建
             $arrHotSearch[$hotWord] = 1;
         }
 
         $jsonHotSearch = json_encode($arrHotSearch);
-
-        hotSearch($jsonHotSearch);
     } else {  //文件为空
         $arrHotSearch = [$hotWord => 1];
         $jsonHotSearch = json_encode($arrHotSearch);
-        hotSearch($jsonHotSearch);
+        saveInfo('playList', $list);
     }
+
+    saveInfo('hotSearch', $jsonHotSearch);
 }
 
-function hotSearch($new = '')
+function saveInfo($dir, $new = '')
 {
-    $filePath = "hotSearch.txt";
-
+    $filePath = $dir . '.txt';
     if (file_exists($filePath)) {
-        $fp = fopen($filePath, "r");
-        $str = fread($fp, filesize($filePath));     //指定读取大小，这里把整个文件内容读取出来
-
         if (empty($new)) {  //$new为空时是读取状态，不为空时为写入状态
+            $fp = fopen($filePath, "r");
+            $str = fread($fp, filesize($filePath));     //指定读取大小，这里把整个文件内容读取出来
             fclose($fp);
 
             return $str;
