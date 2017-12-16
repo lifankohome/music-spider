@@ -30,7 +30,15 @@ APlayer.min.js https://github.com/MoePlayer/APlayer
 
 ### Develop
 
-Both Meting.php and Aplayer.min.js have been modified, the original author's code may not work. 
+Both Meting.php and Aplayer.min.js have been modified, the original author's code may not work.
+
+### Android App Available
+
+```
+/app/music-spider.apk
+
+/app/APlayer.min.js 适用于移动app开发
+```
 
 ### Alternative
 
