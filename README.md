@@ -11,6 +11,7 @@
  + 180px Album Display
  + Hot Search Word Display
  + Lyric Spacing Auto Adjust
+ + Music Download
 
 ### Essential Code Quote
 
