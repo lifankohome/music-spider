@@ -106,7 +106,7 @@
 
     <div id="downloadContainer" style="margin-top: .6pc">
         <input type="text" id="download" placeholder="歌曲序号">
-        <button id="downloadBtn">下载</button>
+        <button onclick="downloadMusic()">下载</button>
     </div>
 
     <div id="tip" style="color: whitesmoke"></div>
@@ -122,12 +122,25 @@
 <script src="http://cdn.lifanko.cn/tip.min.js"></script>
 <script>
     var player;
+    var buffer;
+
+    var downloadContainer = document.getElementById('downloadContainer');
+    var download = document.getElementById('download');
+
+    function downloadMusic() {
+        if ((parseInt(download.value) < buffer.length + 1) && (parseInt(download.value) > 0)) {
+            var musicUrl = buffer[parseInt(download.value)-1]['url'];
+
+            window.open(musicUrl);
+        }else {
+            tip("无对应歌曲", "10%", "1", 3000, false);
+        }
+    }
 
     $.get("eraser.php", {   //获取最新列表
         type: 'playList'
     }, function (data) {
-        var buffer = eval("(" + data + ")");    //JS {} 块屏蔽处理
-        // document.write(buffer);
+        buffer = eval("(" + data + ")");    //JS {} 块屏蔽处理
 
         //初始化播放器，使用默认列表
         player = new APlayer({
@@ -159,7 +172,7 @@
                 search.innerText = "《" + name + "》搜索结果";
                 tip("搜索《" + name + "》成功", "10%", "1", 3000, false);
 
-                var buffer = eval("(" + data + ")");    //JS {} 块屏蔽处理
+                buffer = eval("(" + data + ")");    //JS {} 块屏蔽处理
 
                 if (buffer.length) {
                     player.destroy();   //重新实例化一个播放器，把列表传进去
@@ -187,6 +200,7 @@
     }
 
     var hotSearchNum = 10;
+
     function getHotSearch() {
         $.get("eraser.php", {
             type: 'hotSearch',
