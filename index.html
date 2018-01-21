@@ -61,6 +61,14 @@
             margin: 0 auto;
         }
 
+        #downLoadA{
+            font-size: 12px;
+            background-color: #333;
+            color: whitesmoke;
+            padding: 2px 5px;
+            border-radius: 2px;
+        }
+
         .hotWord {
             background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);
             color: #3b7294;
@@ -104,9 +112,9 @@
 
     <div id="player" class="aplayer"></div>
 
-    <div id="downloadContainer" style="margin-top: .6pc">
+    <div style="margin-top: .6pc">
         <input type="text" id="download" placeholder="歌曲序号">
-        <button onclick="downloadMusic()">下载</button>
+        <a id="downLoadA" onclick="downloadMusic()" href="#" download="高品质最全曲库-橡皮音乐">下载</a>
     </div>
 
     <div id="tip" style="color: whitesmoke"></div>
@@ -124,16 +132,16 @@
     var player;
     var buffer;
 
-    var downloadContainer = document.getElementById('downloadContainer');
     var download = document.getElementById('download');
 
     function downloadMusic() {
         if ((parseInt(download.value) < buffer.length + 1) && (parseInt(download.value) > 0)) {
-            var musicUrl = buffer[parseInt(download.value)-1]['url'];
-
-            window.open(musicUrl);
-        }else {
-            tip("无对应歌曲", "10%", "1", 3000, false);
+            //改变href对象
+            document.getElementById('downLoadA').href = buffer[parseInt(download.value) - 1]['url'];
+        } else {
+            //无对应歌曲则阻止下载进行
+            document.getElementById('downLoadA').href="javascript:void(0)";
+            tip("无对应歌曲", "25%", "1", 3000, false);
         }
     }
 
@@ -162,7 +170,7 @@
         var search = document.getElementById("search");
 
         var name = $("#name").val();
-        if (name != "") {
+        if (name !== "") {
             search.innerText = "正在搜索...";
             $.get("eraser.php", {
                 type: 'search',
