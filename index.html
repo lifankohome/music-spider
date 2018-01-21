@@ -127,6 +127,7 @@
         type: 'playList'
     }, function (data) {
         var buffer = eval("(" + data + ")");    //JS {} 块屏蔽处理
+        // document.write(buffer);
 
         //初始化播放器，使用默认列表
         player = new APlayer({
@@ -195,8 +196,9 @@
 
             if (hotSearchNum > 10) {
                 tip("加载成功！", "85%", "1", 1000, false);
-                clickHotSearch();   //刷新绑定事件
             }
+
+            clickHotSearch();   //刷新绑定事件
 
             hotSearchNum += 10; //加载成功后才允许在加载更多
         }).error(function () {
@@ -215,10 +217,6 @@
     }
 
     getHotSearch(); //打开页面先加载一次热搜内容
-
-    window.onload = function () {   //绑定点击热搜词事件
-        clickHotSearch();
-    };
 
     tip("欢迎使用橡皮音乐", "25%", "1", 2000, false);
 </script>
