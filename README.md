@@ -34,6 +34,8 @@ APlayer.min.js https://github.com/MoePlayer/APlayer
 Both Meting.php and Aplayer.min.js have been modified, the original author's code may not work.
 
 ### Android App
+v0.0.5 2018/01/23 http://7zfrwi.com1.z0.glb.clouddn.com/a951283e54427526aa3b4bb79385e21f_d
+
 v0.0.3 2017/12/16 http://7zfrwi.com1.z0.glb.clouddn.com/31081cc294b92a4377be7b40f53235c2_d
 
 v0.0.1 2017/12/14 http://7zfrwi.com1.z0.glb.clouddn.com/2e431f1e27b7b807c72b43ca0df20df9_d
