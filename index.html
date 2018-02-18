@@ -115,6 +115,7 @@
     <div style="margin-top: .6pc">
         <input type="text" id="download" placeholder="歌曲序号">
         <a id="downLoadA" onclick="downloadMusic()" href="#" download="高品质最全曲库-橡皮音乐">下载</a>
+        <a href="http://7zfrwi.com1.z0.glb.clouddn.com/a951283e54427526aa3b4bb79385e21f_d" style="float: right;font-size: 12px;color: #F40;line-height: 23px">下载APP</a>
     </div>
 
     <div id="tip" style="color: whitesmoke"></div>
@@ -122,12 +123,12 @@
         <h3>热搜 <a onclick="getHotSearch()" style="font-size: 12px;cursor: pointer;">加载更多</a></h3>
         <ul id="hotSearch"></ul>
     </div>
-    <p style="font-size: 12px">© Copyright lifanko 2017 November</p>
+    <p style="font-size: 12px">Copyright &copy; <a href='http://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2018 豫ICP备16040860号-1</p>
 </div>
 
-<script type="text/javascript" src="http://cdn.lifanko.cn/jquery-2.1.1.min.js"></script>
+<script src="http://cdn.lifanko.cn/jquery-2.1.1.min.js"></script>
 <script src="APlayer.min.js"></script>
-<script src="http://cdn.lifanko.cn/tip.min.js"></script>
+<script src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script>
     var player;
     var buffer;
@@ -141,7 +142,7 @@
         } else {
             //无对应歌曲则阻止下载进行
             document.getElementById('downLoadA').href="javascript:void(0)";
-            tip("无对应歌曲", "25%", "1", 3000, false);
+            tip("无对应歌曲", "25%", 3000, "1", false);
         }
     }
 
@@ -163,7 +164,7 @@
             music: buffer
         });
     }).error(function () {
-        tip("网络错误，请稍后再试", "10%", "1", 3000, false);
+        tip("网络错误，请稍后再试", "10%", 3000, "1", false);
     });
 
     function search(source) {
@@ -178,7 +179,7 @@
                 name: name
             }, function (data) {
                 search.innerText = "《" + name + "》搜索结果";
-                tip("搜索《" + name + "》成功", "10%", "1", 3000, false);
+                tip("搜索《" + name + "》成功", "10%", 3000, "1", false);
 
                 buffer = eval("(" + data + ")");    //JS {} 块屏蔽处理
 
@@ -197,13 +198,13 @@
                         music: buffer
                     });
                 } else {
-                    tip("未搜索到相关歌曲", "10%", "1", 3000, false);
+                    tip("未搜索到相关歌曲", "10%", 3000, "1", false);
                 }
             }).error(function () {
-                tip("网络错误，请稍后再试", "10%", "1", 3000, false);
+                tip("网络错误，请稍后再试", "10%", 3000, "1", false);
             });
         } else {
-            tip("请输入 歌曲/歌手/专辑 后搜索", "10%", "1", 3000, false);
+            tip("请输入 歌曲/歌手/专辑 后搜索", "10%", 3000, "1", false);
         }
     }
 
@@ -217,14 +218,14 @@
             document.getElementById("hotSearch").innerHTML = data;
 
             if (hotSearchNum > 10) {
-                tip("加载成功！", "85%", "1", 1000, false);
+                tip("加载成功！", "85%", 3000, "1", false);
             }
 
             clickHotSearch();   //刷新绑定事件
 
             hotSearchNum += 10; //加载成功后才允许在加载更多
         }).error(function () {
-            tip("加载失败！请稍后重试", "85%", "1", 1000, false);
+            tip("加载失败！请稍后重试", "85%", 3000, "1", false);
         });
     }
 
@@ -233,14 +234,23 @@
         for (var i = 0; i < obj_lis.length; i++) {
             obj_lis[i].onclick = function () {
                 document.getElementById("name").value = this.innerText; //添加关键词进输入框
-                tip("《" + this.innerText + "》已经复制到搜索框", "85%", "1", 1000, false);
+                tip("《" + this.innerText + "》已经复制到搜索框", "85%", 3000, "1", false);
             }
         }
     }
 
     getHotSearch(); //打开页面先加载一次热搜内容
 
-    tip("欢迎使用橡皮音乐", "25%", "1", 2000, false);
+    tip("欢迎使用橡皮音乐", "25%", 2000, "1", false);
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a258eee7e1b38615e85fde12692f95cc";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
 </script>
 </body>
 </html>
