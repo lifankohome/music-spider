@@ -79,12 +79,13 @@
         }
 
         .hotWord h3 {
-            margin: 0;
+            margin: 0 0 10px 0;
         }
 
         #hotSearch {
             list-style: none;
             padding: 0 0.5pc;
+            border-radius: 5px;
         }
 
         #hotSearch li {
@@ -96,6 +97,21 @@
             font-size: 12px;
             border-radius: 2px;
             cursor: pointer;
+        }
+
+        #comment {
+            width: 97%;
+            margin: 0 auto;
+            height: 270px;
+        }
+
+        iframe {
+            border: none;
+            background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);
+            padding: 2% 1%;
+            width: 98%;
+            margin-top: 1pc;
+            min-height: 200px;
         }
     </style>
 </head>
@@ -122,12 +138,16 @@
            style="float: right;font-size: 12px;color: #F40;line-height: 23px">下载APP</a>
     </div>
 
-    <div id="tip" style="color: whitesmoke"></div>
+    <div style="margin-top: 10px;font-size: 14px">友情链接：<a href="http://ali.lifanko.cn/video/"
+                                                          style="">影视爬虫-VIP视频免费观看</a></div>
     <div class="hotWord">
         <h3>热搜 <a onclick="getHotSearch()" style="font-size: 12px;cursor: pointer;">加载更多</a></h3>
         <ul id="hotSearch"></ul>
     </div>
-    <p style="font-size: 12px">Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a>
+    <div style="text-align: center;border-top: 1px solid #899eff;margin-top: 18px">
+        <iframe src="http://hpu.lifanko.cn:81/comment/index.php?pid=eraser-music"></iframe>
+    </div>
+    <p style="font-size: 12px;border-top: 1px solid #899eff;padding-top: 10px">Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a>
         2017-2018 豫ICP备16040860号-1</p>
 </div>
 
