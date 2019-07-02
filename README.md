@@ -34,6 +34,8 @@ APlayer.min.js https://github.com/MoePlayer/APlayer
 Both Meting.php and Aplayer.min.js have been modified, the original author's code may not work.
 
 ### Android App
+v1.0.0 2019/03/27 http://A6051308906702.qiniucdn.apicloud-system.com/5c3442f721fd99136f15939d7974667f_d
+
 v0.0.5 2018/01/23 http://7zfrwi.com1.z0.glb.clouddn.com/a951283e54427526aa3b4bb79385e21f_d
 
 v0.0.3 2017/12/16 http://7zfrwi.com1.z0.glb.clouddn.com/31081cc294b92a4377be7b40f53235c2_d
@@ -49,6 +51,6 @@ No_CSS_Version: https://github.com/lifankohome/music-spider/tree/No_CSS_Version
 
 ### Demo
 
-http://ali.lifanko.cn/music/
+https://www.lifanko.cn/music/
 
 ![示例截图](https://github.com/lifankohome/music-spider/blob/master/screenshot.jpg?raw=true)
