@@ -1,5 +1,7 @@
 # Music-spider 橡皮音乐
 
+# 此版本不再升级维护！！！新版本地址：https://gitee.com/lifanko/music-spider
+
 ### Introduction
 
 音乐播放器/下载器，歌曲库：网易 + 酷狗 + QQ + 虾米，合称中华曲库
